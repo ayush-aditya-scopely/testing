@@ -1,0 +1,10 @@
+name: pull-notifier
+on:
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Pull Request
+        run: echo "Pull done!"
