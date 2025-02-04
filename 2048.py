@@ -35,17 +35,17 @@ def move(board, direction):
     def move_row_left(row):
         return compress(merge(compress(row)))
 
-    rotated = [list(row) for row in zip(*board)]
-
     if direction == 'left':
         board[:] = [move_row_left(row) for row in board]
     elif direction == 'right':
         board[:] = [move_row_left(row[::-1])[::-1] for row in board]
     elif direction == 'up':
-        rotated = move([move_row_left(row) for row in rotated])
+        rotated = [list(row) for row in zip(*board)]
+        rotated = [move_row_left(row) for row in rotated]
         board[:] = [list(row) for row in zip(*rotated)]
     elif direction == 'down':
-        rotated = move([move_row_left(row[::-1])[::-1] for row in rotated])
+        rotated = [list(row) for row in zip(*board)]
+        rotated = [move_row_left(row[::-1])[::-1] for row in rotated]
         board[:] = [list(row) for row in zip(*rotated)]
 
 # Check if any moves are available
@@ -62,13 +62,16 @@ def any_moves_available(board):
 # Main game loop
 def main():
     board = initialize_game()
-    while any_moves_available(board):
-        print_board(board)
-        move_input = input("Enter move (left, right, up, down): ").strip().lower()
-        if move_input in ['left', 'right', 'up', 'down']:
+    directions = ['left', 'right', 'up', 'down']
+    moves = random.choices(directions, k=10)
+    print("Initial board:")
+    print_board(board)
+    for move_input in moves:
+        if any_moves_available(board):
             move(board, move_input)
             add_new_tile(board)
-    print("Game Over!")
+    print("Final board state after 10 random moves:")
+    print_board(board)
 
 if __name__ == "__main__":
     main()
