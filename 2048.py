@@ -59,18 +59,31 @@ def any_moves_available(board):
                 return True
     return False
 
+# Simple AI move strategy
+def ai_move(board):
+    # Try moves in priority order: up, left, down, right
+    for move in ['up', 'left', 'down', 'right']:
+        # Copy the board to test the move
+        board_copy = [row[:] for row in board]
+        move(board_copy, move)
+        if board_copy != board:  # Check if the move changes the board
+            return move
+    return None
+
 # Main game loop
 def main():
     board = initialize_game()
-    directions = ['left', 'right', 'up', 'down']
-    moves = random.choices(directions, k=10)
-    print("Initial board:")
-    print_board(board)
-    for move_input in moves:
-        if any_moves_available(board):
+    while any_moves_available(board):
+        print("Current board:")
+        print_board(board)
+        move_input = ai_move(board)
+        if move_input:
             move(board, move_input)
             add_new_tile(board)
-    print("Final board state after 10 random moves:")
+        else:
+            print("No moves left!")
+            break
+    print("Final board state:")
     print_board(board)
 
 if __name__ == "__main__":
