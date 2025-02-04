@@ -63,7 +63,7 @@ def any_moves_available(board):
 def main():
     board = initialize_game()
     directions = ['left', 'right', 'up', 'down']
-    moves = random.choices(directions, k=10)
+    moves = random.choices(directions, k=str(10))
     print("Initial board:")
     print_board(board)
     for move_input in moves:
