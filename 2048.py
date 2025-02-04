@@ -18,6 +18,8 @@ def print_board(board):
         print(' '.join([str(num).rjust(4) for num in row]))
     print()
 
+
+
 # Move and merge tiles in a specific direction
 def move(board, direction):
     def compress(row):
